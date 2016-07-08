@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular 路由功能2</title>
+    <!-- 使用路由步骤：安装angular-ui库、引入库、依赖ui.router模块、$urlRouterProvider和$stateProvider服务作为方法参数 -->
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script>
+        /* ui.router模块基于状态工作，提供$urlRouterProvider和$stateProvider服务，
+         * $urlRouterProvider服务和$routeProvider服务作用相同，$stateProvider功能更加强大
+         * 可以在视图即子页面中嵌套使用路由，那么必须使用ui-view显示指令，
+         * 可以认为一个http请求(ajax)页面就是一个应用状态或者应用处于哪个路由，
+         * 一个状态对应一个视图模版,ui-view指令专门用于提供显示当前状态模版，
+         * 控制器可以声明在视图中也可以声明在状态模版中 */
+        var app = angular.module('myApp', ['ui.router']);
+        app.controller('myCtrl', function ($scope) {
+            $scope.testRoute = {
+                car01: {brand: "Ford", model: "Mustang", color: "red"},
+                car02: {brand: "Fiat", model: "500", color: "white"},
+                car03: {brand: "Volvo", model: "XC90", color: "black"}
+            };
+            //　config方法用于定义路由，不是在$routeProvider上定义路由，而是在$stateProvider定义状态
+        }).config(function ($stateProvider, $urlRouterProvider) {// 此处参数顺序不能错
+            // 三种状态模版对象，主视图通过状态名来切换不同状态
+            $stateProvider.state('state1', {
+                        url: '/state1',
+                        template: '<h3>状态一的视图模版{{testRoute.car01}}这个name值在对应的控制器中定义</h3>',
+                        controller: 'myCtrl'
+                    })
+                    .state('state2', {
+                        url: '/state2',
+                        controller: 'myCtrl',
+                        templateProvider: function () {
+                            return "<h3>返回视图模版的的字符串，此方法和template效果相同{{testRoute.car03}}</h3>";
+                        }
+                    })
+                    // templateUrl是常用的定义模版的方式
+                    .state('state3', {
+                        // 该属性表示该模版是一个抽象状态，永远不会被激活，但可以在里面通过不同方式设置可激活的子模版状态
+                        abstract: true,// 抽象模版就是一个模版包含器，用来包裹多个命名视图，所以抽象模版是不能有控制器的
+                        // url属性和状态标志state3唯一对应，用户通过state3状态切换到对应的url(只是用于地址栏中显示而已)
+                        url: '/state3',
+                        template: '<div ui-view></div>',
+                        /*
+                         // 这种方式先通过$http服务获取数据后，然后才实例化控制器注入
+                         currentDetails: function ($http) {
+                         return $http({
+                         method: 'JSONP',
+                         url: 'http://localhost:63342/testAngularJS/app/test/myJson.json'
+                         });
+                         },
+                         // 上面通过$http注入的依赖，可以在其他依赖中使用
+                         facebookId: function ($http, currentDetails) {
+                         $http({
+                         method: 'GET',
+                         url: 'http://localhost:63342/testAngularJS/app/test/myJson.json',
+                         params: {
+                         email: currentDetails.data.emails[0]
+                         }
+                         });
+                         }*/
+                        // resolve属性值需要手动注入控制器,$stateParams参数是url中传递的参数，可以在url后面指定也可以在params属性中指定
+                        //params: ['param1', 'param2'],
+                        // views:{}该属性可以在一个模版中引用多个视图，即添加多个ui-view，每个子视图可以有各自的定义，只是包含这些子视图的父模块是一个抽象状态
+                        // onEnter、onExit用来设置进出当前视图的回调函数
+                    })
+                    // 点号表示child1是state3下的一个子路由，即会切换到state3下的child1状态
+                    .state('state3.child', {
+                        url: '/state3-child',
+                        templateUrl: 'outer2.html',
+                        resolve: {// resolve属性注入关联控制器中使用到的依赖,即myCtrl2
+                            person: function () {// 直接定义后注入
+                                return {
+                                    name: "Ari",
+                                    email: "ari@fullstack.io"
+                                };
+                            }
+                        },
+                        controller: function ($scope, person) {
+                            $scope.person = person;
+                        },
+                        // data属性类似于resolve属性，用来注入数据，但是数据不会被注入到控制器中，一般用来从父状态向子状态传递数据
+                        data: {pageTitle: '主页'}
+                    });
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+<!-- 注意使用$stateProvider时需要用ui-sref来导航定义的状态state，而不是url -->
+<p><a ui-sref="state1">状态1</a></p>
+<p><a ui-sref="state2">状态2</a></p>
+<p><a ui-sref="state3.child">状态3</a></p>
+<!-- 每个项目都有一个主视图，其中ui-view用于展示子视图，子视图也可以有自己的ui-view -->
+<div ui-view></div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS $http服务</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        // $http服务用于从远程服务器上获取数据
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', function ($scope, $http) {
+            var dataUrl = "http://localhost:63342/testAngularJS/app/test/myJson.json";
+            //var dataUrl = "http://www.runoob.com/try/angularjs/data/Customers_JSON.php";
+            /*$http({
+             method: 'GET',
+             url: dataUrl,
+             params: {id: 1},// post方式就用data传参
+             }).success(function (resp) {
+             $scope.datas = resp.records;// json数组对象
+             });*/
+            /*$http.jsonp(dataUrl + "?callback=JSON_CALLBACK").success(function (resp) {// 跨域使用jsonp方式
+                $scope.datas = resp.records;
+            });*/
+            $http.get(dataUrl).success(function (resp) {
+             $scope.datas = resp.records;
+             });
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <h4 ng-repeat="x in datas">{{x.Name + "————" + x.City + "————" + x.Country}}</h4>
+</div>
+</body>
+</html>

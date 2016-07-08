@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单元素</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.user = {name: '小明', age: 18};
+            // alert($scope.user);
+            // 创建对象副本必须用angular.copy方法，如果是引用地址直接赋值，那么实际还是同一个对象，那样两者还是绑定的，深度复制
+            $scope.userCopy = angular.copy($scope.user);
+            $scope.reset = function () {
+                $scope.user = angular.copy($scope.userCopy);
+            }
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <!-- novalidate属性是在HTML5中新增的,禁用了使用浏览器的默认验证,从而可以重写标准的HTML5验证 -->
+    <form novalidate>
+        <input type="text" ng-model="user.name">
+        <input type="text" ng-model="user.age">
+        <br>
+        <button ng-click="reset()">reset</button>
+    </form>
+</div>
+</body>
+</html>

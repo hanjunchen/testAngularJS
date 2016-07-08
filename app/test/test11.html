@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS多个HTML元素绑定同一数据，从而联动控制</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="" ng-init="bindCtrl=true;hour=11">
+    <input type="button" value="点击" ng-disabled="bindCtrl">
+    <input type="checkbox" ng-model="bindCtrl">{{bindCtrl}}
+    <button disabled>点击</button>
+    <p ng-show="true">看见</p>
+    <p ng-show="false">看不见</p>
+    <p ng-show="hour === 11">看不见{{hour}}</p>
+    <p ng-hide="false">看见</p>
+    <p ng-hide="true">看不见</p>
+    <p ng-hide="hour === 12">看不见{{hour}}</p>
+</div>
+</body>
+</html>

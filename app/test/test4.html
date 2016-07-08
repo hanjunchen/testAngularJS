@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS表单验证方法</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);// 始终定义一个新的模块，覆盖旧的，而angular.module('myApp'）会先检索现有的，如果没有才会创建新的
+        app.controller('myCtrl', function ($scope) {
+            $scope.name = "John Doe";
+            $scope.flag1 = $scope.myForm.myEmail.$valid;
+        });
+    </script>
+    <style>
+        /* angular可以为处于不同状态的html元素设置对应的css样式，此例表示当输入框的email验证不通过时采用该css样式 */
+        /* 表单域状态有：
+            ng-empty
+            ng-not-empty
+            ng-touched
+            ng-untouched
+            ng-valid
+            ng-invalid
+            ng-dirty
+            ng-pending
+            ng-pristine */
+        #email.ng-invalid {
+            background-color: #ffbdb5;
+        }
+    </style>
+</head>
+<body>
+<form ng-app="" name="myForm" ng-init="text='test@runoob.com'">
+    <!-- required属性表示该html元素的必填项，placeholder属性指定输入框空白时的背景文字，可作为提示信息 -->
+    Email:<input type="email" id="email" name="myEmail" ng-model="text" required placeholder="邮箱格式：test@runoob.com">
+    <!-- 邮箱验证，当验证不通过时显示提示信息，angular的邮箱验证正则是：\w+@\w+ ，需要注意的是该验证空白字符也能通过，
+        所以需要加上required属性并且使用$valid属性验证 -->
+    <!-- 通过元素name属性值获取元素对象，再通过$error属性验证 -->
+    <!-- ng-show的作用是：当指令中的条件判断返回true时，就显示该html元素，否则就隐藏 -->
+    <span ng-show="myForm.myEmail.$error.email">邮箱地址不合法</span>
+    <!-- $valid返回邮箱验证结果，通过为true不通过为false，此方式会检查required属性，如果不遵循required属性也会返回false，
+        而$error方式则不会检查required属性，所以一般验证应该采用$valid方式验证 -->
+    <h2>{{myForm.myEmail.$valid}}</h2>
+    <span ng-show="myForm.myEmail.$invalid">邮箱地址不合法</span><!-- 和$valid相反的属性是$invalid，不合法返回true -->
+    <!-- $dirty判断元素值是否改变，改变则返回true -->
+    <h2>{{myForm.myEmail.$dirty}}</h2>
+    <!-- $touched判断元素是否触发失去焦点事件（不一定是通过点击），如果触发则返回true-->
+    <h2>{{myForm.myEmail.$touched}}</h2>
+    <h3>{{flag1}}</h3>
+</form>
+</body>
+</html>

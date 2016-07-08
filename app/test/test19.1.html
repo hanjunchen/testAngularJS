@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular 路由功能1</title>
+    <!-- 使用路由功能需要：使用bower安装对应router库、script引入库、在module中添加相关依赖模块、使用$routeProvider服务 -->
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/angular-route/angular-route.min.js"></script>
+    <script>
+        // 添加路由模块依赖，在angular-route.min.js库中
+        var app = angular.module('myApp', ['ngRoute']);
+        /* 路由三种方式：$routeProvider、$urlRouterProvider和$stateProvider
+         ngRoute模块提供Angular内置服务$routeProvider,基于简单的url链接导航功能，所以不能在子页面中再使用路由功能(ng-view) */
+        app.controller('myCtrl1', function ($scope) {
+            $scope.test1 = [1, 2, 3, 4, 5];
+            $scope.test2 = {name: '小明', age: '11'};
+        }).controller('myCtrl2', function ($scope) {
+            $scope.test3 = ['qwe', 'asd', 'zxc'];
+            $scope.test4 = {name: '小黑', age: '12'};
+        }).config(function ($routeProvider) {
+            // $routeProvider服务定义于ngRoute模块中，此处配置了三个路由对象
+            $routeProvider.when('/', {template: '<h3>直接打印内容<h3>'})
+                    .when('/jump', {templateUrl: 'jump.html', controller: 'myCtrl1'})// 需要使用到定义的控制器，所以config方法在后面
+                    .when('/break', {templateUrl: 'break.html', controller: 'myCtrl2'})
+                    .when('/outer', {templateUrl: 'outer1.html', controller: 'myCtrl2'})
+                    .otherwise({redirectTo: '/'});
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+<!-- 使用这种方法可以指定html页面模版，也可以使用外部文件 -->
+<script type="text/ng-template" id="jump.html">
+    <h3 ng-repeat="x in test1">{{x}}</h3>
+    <h3>{{test2.name + ',' + test2.age}}</h3>
+</script>
+<script type="text/ng-template" id="break.html">
+    <h3 ng-repeat="x in test3">{{x}}</h3>
+    <h3>{{test4.name + ',' + test4.age}}</h3>
+</script>
+<!-- angular通过#+标记区分路由 -->
+<a ng-href="#/">首页</a>
+<a ng-href="#/jump">jump</a>
+<a ng-href="#/break">break</a>
+<a ng-href="#/outer">outer</a>
+<a ng-href="#/other">other</a>
+<!-- ng-view这种类型的自定义指令都有默认值，默认可以省略参数值
+     需要注意的是：Angular的内置服务$routeProvider必须使用ng-view显示当前路由模块，而-->
+<div ng-view></div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格CSS样式</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', function ($scope, $http) {
+            var url = "http://localhost:63342/testAngularJS/app/test/myJson.json";
+            $http.get(url).success(function (response) {
+                $scope.myTable = response.records;
+            });
+        });
+    </script>
+    <style>
+        table, tr, td {
+            border: 1px solid grey;
+            border-collapse: collapse; /* 去除单元间距 */
+            padding: 5px;
+        }
+
+        .odd {
+            background-color: #BBD7A9
+        }
+    </style>
+</head>
+<body>
+<table ng-app="myApp" ng-controller="myCtrl">
+    <!-- ng-class-odd 指令用于为 HTML 元素动态的绑定一个或多个 CSS 类，但只作用于奇数行,
+         指令需要与ng-repeat指令搭配使用,指令建议用在表格的样式渲染中，但是所有HTML元素都是支持的 -->
+    <!-- ng-repeat指令会循环输出当前html及其其中的元素 -->
+    <!-- 隔行变色从而如此简单，注意：在ng-class中采用类样式必须加上引号 -->
+    <tr ng-repeat="x in myTable | orderBy:'Country'" ng-class-odd="'odd'">
+        <!-- $index类似于JSTL中循环索引，不是服务 -->
+        <!-- ng-if如果值为false则移除html元素，与jstl中的if:test使用不一样,ng-if当满足条件时会具备额外的效果 -->
+        <!--<td ng-if="$even" style="background-color: #BBD7A9">{{$index + 1}}</td>
+        <td ng-if="$even" style="background-color: #BBD7A9">{{x.Name}}</td>
+        <td ng-if="$even" style="background-color: #BBD7A9">{{x.City}}</td>
+        <td ng-if="$even" style="background-color: #BBD7A9">{{x.Country | uppercase}}</td>
+        <td ng-if="$odd">{{$index + 1}}</td>
+        <td ng-if="$odd">{{x.Name}}</td>
+        <td ng-if="$odd">{{x.City}}</td>
+        <td ng-if="$odd">{{x.Country | uppercase}}</td>-->
+        <td>{{$index + 1}}</td>
+        <td>{{x.Name}}</td>
+        <td>{{x.City}}</td>
+        <td>{{x.Country | uppercase}}</td>
+    </tr>
+</table>
+</body>
+</html>

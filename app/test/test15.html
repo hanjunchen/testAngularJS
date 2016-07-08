@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS 全局 API</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.x = "John"
+            $scope.y = angular.uppercase($scope.x);// 全局方法功能与过滤器相同
+            $scope.flag1 = angular.isString($scope.x);
+            $scope.flag2 = angular.isNumber($scope.x);
+            /*其他的类似全局API有：
+             angular.isArray()
+             angular.isDate()
+             angular.isDefined()
+             angular.isElement()
+             angular.isFunction()
+             angular.isObject()
+             angular.isUndefined()*/
+        });
+
+        // 下面全局方法不依赖控制器和模块，就简单的类似于jquery和js
+        var list = ['小明', '小毛', '小周', '小蕾'];
+        // forEach全局方法两个参数，遍历集合，数组的key是索引，val是数组元素
+        angular.forEach(list, function (val, key) {
+            // console.log全局方法在js中就有，类似于alert，但是效果更好，不会打断当前页面，显示对象全部内容，在浏览器的控制台查看
+            console.log(key + '号同学:' + val);
+        })
+        var obj = {
+            name: '吴登广',
+            age: '21',
+            title: 'worker'
+        }
+        // 遍历对象，key是属性名，val是属性值
+        angular.forEach(obj, function (val, key) {
+            console.log(key + ':' + val);
+        })
+
+        // angular.copy方法
+        var user1 = {
+            name: 'hjc',
+            age: 21,
+            title: 'worker'
+        }
+        var user2 = user1;// 只复制指针地址，实际为同一个对象
+        var user3 = angular.copy(user1);// 内存中又创建一个新对象
+        var user4 = {};// 空对象
+        angular.copy(user1, user4);// 重载方法无返回值，注意这个user4必须是一个对象或数组
+        user1.name = 'hello';
+        console.log('user1:' + user1.name);
+        console.log('user2:' + user2.name);
+        console.log('user3:' + user3.name);
+        console.log('user4:' + user4.name);
+
+        // jquery载入js
+        $(function () {
+            // 如果没有引入jquery库，则使用AngularJS自带的类似于jquery的jqLite库，转换为jqLite DOM对象
+            // angular.element方法，仅仅将JS DOM对象或jquery DOM对象转换为angular DOM对象对象
+            // 所谓的jquery DOM和angular DOM,都是封装的JS DOM对象
+            var p = angular.element($('p'));
+            //var p = angular.element(document.getElementsByTagName("p")[0]);// jqLite要通过这样方式获取，使用jquery有些区别
+            console.log(p.html());
+        });
+
+        // 作用相当于jquery的$(function(){})
+        /*angular.element(document).ready(function () {
+         // 用于手动启动angular应用，而不是通过ng-app指令启动，数组参数是应用依赖模块
+         angular.bootstrap(document, []);
+         });*/
+
+        // angular.toJson和angular.fromJSON全局方法
+        var user = {// 这个定义是一个json格式对象(简称json对象)，注意格式：属性名是没有引号的
+            // 而json文件中定义的都是json格式字符串，属性名都必须有引号，使用过程常常需要两者相互转换，
+            // 特别是数据在客户端和服务器之间交互时，而一般前端html中看到的都是json对象，
+            // 只有数据在传递过程中才需要转换成json格式字符串传递
+            name: 'Jax2000',
+            age: 21,
+            title: 'worker'
+        }
+        console.log(user);// 将之前的json对象和json字符串概念转换过来
+        console.log(user.name);// 只有对象才可以这样访问属性
+        user = angular.toJson(user);// 相当于JSON.stringify()方法，将对象或数组格式化为json字符串，就是一个序列化过程
+        console.log(user);// 因此这里打印的就是一个json格式的字符串
+        console.log(user.name);// json字符串仅仅是字符串，这样无法访问到name
+        user = angular.fromJson(user);// 相当于JSON.parse()方法，将json字符串转换为json对象，就是一个反序列化过程
+        console.log(user);// 打印结果是一个对象
+
+        // angular.extend和angular.merge方法，前者是浅复制，后者和copy类似都是深复制
+        var user3 = {
+            name: 'Jax2000',
+            age: 21,
+        }
+        var user4 = {
+            age: 22,
+            skill: {}
+        }
+        var dst = {};
+        var dst2 = {};
+        angular.extend(dst, user3, user4);// 同名属性，后面的会覆盖前面的
+        console.log(dst);
+        console.log(dst.skill === user4.skill);// 浅复制，只是将对象引用赋值给新的
+        angular.merge(dst2, user3, user4);// 该方法要求必须是angular1.4以上版本
+        console.log(dst2);
+        console.log(dst2.skill === user4.skill);// 深复制，其中的属性对象复制时会在内存中新建一个一摸一样的
+
+        // angular.equals方法,判断两个对象或者值是否相等,
+        // 如果是对象，则要求对象的属性名、属性数量、对应属性值全部相等，结果才返回true
+        // 和属性顺序无关，和有无方法和方法名都无关
+        var stu1 = {
+            name: 'Jax2000',
+            age: 21
+        }
+        var stu2 = {
+            age: 21,
+            name: 'Jax2000'
+        }
+        console.log(angular.equals(stu1, stu2));
+
+        // angular.noop空方法
+        console.log(angular.noop());
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <p>first</p>
+    <p>second</p>
+    <p>{{ x }}</p>
+    <p>{{ y }}</p>
+    <p>{{ y | lowercase }}</p>
+    <p>{{ flag1 }}</p>
+    <p>{{ flag2 }}</p>
+</div>
+</body>
+</html>

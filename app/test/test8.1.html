@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS服务$location、$http</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        angular.module("myApp", []).controller('myCtrl', function ($scope, $location, $http) {
+            // $location需要作为参数传进来，并且调用的是它的方法，获取当前页面的url
+            $scope.myUrl = $location.absUrl();
+            // 控制器中的$scope的属性调用必须加上$scope，通过$http的get方式发送请求（post也可以），
+            // then方法默认第一个参数是成功响应的回调函数，也可以设置第二个参数返回响应失败信息
+            $http.get($scope.myUrl).then(function (resp) {
+                $scope.myData = resp.data;
+            });
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <h2>{{myUrl}}</h2>
+    <h2>{{myData}}</h2>
+</div>
+</body>
+</html>

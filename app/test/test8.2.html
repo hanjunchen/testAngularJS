@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS定时服务</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        angular.module("myApp", []).controller('myCtrl', function ($scope, $timeout, $interval) {
+            $scope.myString = "Hello World!";
+            // $timeout服务对应JS的window.setTimeout方法，使用服务注意语法，服务的内置方法，在加载js时就会执行
+            $timeout(function () {
+                $scope.myString = "changed because timeout!";
+            }, 1000);// 1秒后调用该方法
+            // 使用$timeout实现与$interval相同的功能，此种方法不行，会导致堆栈溢出，JS中则可以
+            /*$scope.myTimeout = function () {
+                $scope.myTime = new Date().toLocaleTimeString();
+                $timeout($scope.myTimeout(), 2000);
+            }
+            $scope.myTimeout();*/
+            // $interval服务对应JS的window.setInterval方法
+            $interval(function () {
+                $scope.myDateTime = new Date().toLocaleString();
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <h2>{{myString}}</h2>
+    <!--<h2>{{myTime}}</h2>-->
+    <h2>{{myDateTime}}</h2>
+</div>
+</body>
+</html>

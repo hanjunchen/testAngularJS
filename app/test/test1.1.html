@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS指令和表达式</title>
+    <!--<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+</head>
+<body>
+
+<!-- 先有应用程序app和其属变量name，然后才将变量赋值给html元素（双向绑定）,angularJS的核心理解就是数据绑定到html元素 -->
+<!-- 可以初始化json对象，就跟java对象一样，可以在任何ng指令中初始化 -->
+<!-- ng-app是AngularJS的根元素 -->
+<div ng-app="" ng-init="name='John';price=5;count=2;person={name:'小明',age:18};array=[23,34,67,32,78]">
+    <h2>名字 : <input type="text" ng-model="name"></h2>
+    <h2>Hello {{name}}</h2>
+    <!-- ng-bind后hello文本将被替换 -->
+    <h2 ng-bind="name">Hello</h2>
+    <!--　绑定ＡngularJS数据　-->
+    <h2 ng-bind="name + '' + price * count"></h2>
+    <h2>{{5+5}}</h2>
+    <!--　获取对象属性　-->
+    <h2>{{person.name + '' + person.age}}</h2>
+    <!-- 绑定数组值 -->
+    <h2 ng-bind="array[4]"></h2>
+    <!-- AngularJS表达式中对html元素不进行转义 -->
+    {{'&lt;h2&gt;' + array[1] + '&lt;/h2&gt;'}}
+    <!-- 同步ng-model和{{}}的值 -->
+    <h2>价格：<input type="text" ng-model="price"></h2>
+    <h2>数量：<input type="text" ng-model="count"></h2>
+    <h2>{{price * count}}</h2>
+    <!-- ng-repeat循环html元素，并遍历数组的值 -->
+    <ul>
+        <li ng-repeat="x in array">{{x}}</li>
+    </ul>
+    <!-- 遍历对象数组（就是json对象数组） -->
+    <table ng-init="students=[{name:'小明',age:18,course:'数学'},{name:'小黑',age:8,course:'语文'},{name:'小白',age:28,course:'英语'}]"
+           border="1">
+        <tr ng-repeat="x in students">
+            <td>姓名：</td>
+            <td>{{x.name}}</td>
+            <td>年龄：</td>
+            <td>{{x.age}}</td>
+            <td>课程：</td>
+            <td>{{x.course}}</td>
+        </tr>
+    </table>
+    <!-- 循环输出一个对象，注意这里的x,y表示的是key-value -->
+    <table ng-init="student={name:'呵呵',age:'12',course:'历史'}"></table>
+    <h3 ng-repeat="(x,y) in student">{{x + '---' + y}}</h3>
+    <!-- ng-list指令将字符串转换为数组，其值指定了数组分隔符，默认逗号分割：ng-list="," -->
+    <input type="text" ng-model="my" ng-list>
+    <p>{{my}}</p>
+</div>
+
+<!--多个ng-app需要使用angular.bootstrap(angular.element("#Lilei"),["Lilei"]);用于手动启动每个应用程序，支持html5特性标签在ng前面加上data-->
+</body>
+</html>

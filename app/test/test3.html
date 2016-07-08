@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS自定义指令</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.directive("runDirective", function () {
+            // 自定义指令在template属性中指定
+            return {
+                template: "<h2>自定义指令!</h2>",
+                // 设置了restrict的值调用指令方式失效，C是类名调用，M是注释方式调用，E是元素名调用，A是属性调用，默认值是EA
+                restrict: "M",
+                //  replace会用自定义元素取代指令声明，而不是嵌套在其内部
+                replace: true
+
+            };
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp">
+    <!-- 四种方式调用指令 -->
+    <run-directive></run-directive>
+    <p run-directive></p>
+    <p class="run-directive"></p>
+    <!-- directive:run-directive -->
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ng-repeat</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.arrs = [1, 2, 5, 7, 2];
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<!-- AngularJS中不允许数组中存在相同的对象或数据，因为angular需要一个唯一值可以与生成的dom绑定，以便追踪
+     所以可以使用track by语法指定对象的一个不会重复属性作为唯一id，如果是数组那么只能使用系统索引$index作为唯一id -->
+<div ng-repeat="arr in arrs track by $index">
+    {{arr + ',' + $index}}
+</div>
+</body>
+</html>

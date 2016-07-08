@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS外部js文件，应用程序方法</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script src="test6.controller.js"></script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <input type="text" ng-model="name1">
+    <input type="text" ng-model="name2">
+    <!-- 调用方法必须加上括号 -->
+    <h2>name:{{fullName()}}</h2>
+</div>
+</body>
+</html>

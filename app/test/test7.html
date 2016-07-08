@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS过滤器</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        angular.module("myApp", []).controller('myCtrl', function ($scope) {
+            $scope.name1 = "John";
+            $scope.name2 = "Doe";
+            $scope.fullName = function () {
+                return $scope.name1 + " " + $scope.name2;
+            }
+            $scope.price = 9.99;
+            $scope.count = 2;
+            $scope.stus = [{name: '小明', age: 11}, {name: '小黑', age: 7}, {name: '小白', age: 16}];
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <!-- 过滤器就是一个封装的方法，关于过滤器详细使用查看API -->
+    <!-- 过滤器格式化字符串为大写和小写 -->
+    <h2>{{name1|uppercase}}</h2>
+    <h2>{{name2|lowercase}}</h2>
+    <!-- html5新特性input新增number类型，右边有增减按钮 -->
+    <input type="number" ng-model="price">
+    <input type="number" ng-model="count">
+    <!-- 将数字格式化为货币格式 -->
+    <h2>{{(price * count) | currency}}</h2>
+    <ul>
+        <!-- 冒号后面跟参数,两个冒号表示两个参数,true是数组元素按降序排序，默认值是false按升序排序 -->
+        <li ng-repeat=" x in stus | orderBy:'age':true">{{x.name+ ' ' +x.age}}</li>
+    </ul>
+    <ul>
+        <!-- limitTo限制只输出集合的前n个元素，n为负数则输出后n个元素 -->
+        <li ng-repeat=" x in stus | orderBy:'age'| limitTo:-2">{{x.name}} {{x.age}}</li>
+    </ul>
+    <p><input type="text" ng-model="test"></p><!-- test作为过滤条件，fiter可以自由选择是字符串还是对象作为条件，可以自动识别 -->
+    <ul>
+        <!-- 表达式中一定要注意语法，数据和过滤器要用（）括起来，参数前面加负号强制降序排序 -->
+        <li ng-repeat="x in stus | filter:test | orderBy:'-age'">{{(x.name | uppercase) + ' ' + x.age}}</li>
+    </ul>
+    <!-- fiter过滤得到的是一个数组的子集，仍是一个数组 -->
+    <h2>{{ ['Ari','Lerner','Likes','To','Eat','Pizza'] | filter:'e' }}</h2>
+</div>
+</body>
+</html>

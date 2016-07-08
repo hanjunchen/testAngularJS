@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS自定义服务</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        // 自定义服务使用service关键字，类似于在应用程序模块内自定义一个类，该服务是直接连接的应用程序，
+        // 在其他控制器、过滤器、指令或其他服务中都可以调用
+        // 注意服务、过滤器、控制器的定义顺序
+        // AngularJS自定义服务三种方法service，factory，provider
+        // service方法是以构造函数的形式创建服务对象，其中可以直接使用this表示当前服务对象
+        app.service('hexafy', function () {
+            this.myFunc = function (x) {
+                return x.toString(16);// 十进制转换成十六进制
+            }
+        });
+        // factory方法在function里面构建出一个json对象并返回作为服务对象
+        app.factory('hexafy2', function () {
+            var service = {};
+            service.myFunc = function (x) {
+                return x.toString(16);
+            }
+            return service;
+        });
+        // provider()是创建service最底层的方式，这也是唯一一个可以使用.config()方法配置创建service的方法
+        app.provider('hexafy3', function () {
+            this.backendUrl = "http://localhost:3000";
+            this.setBackendUrl = function (newUrl) {
+                if (newUrl) this.backendUrl = newUrl;
+            }
+            // 可以在$get方法中注入系统服务$http等
+            this.$get = function () {
+                var service = {
+                    myFunc: function (x) {
+                        return x.toString(16);
+                    }
+                }
+                return service;
+            }
+        });
+        // 这里将新的provider注入到config中必须注意命名格式：name+Provider
+        app.config(function (hexafy3Provider) {
+            hexafy3Provider.setBackendUrl("http://myApiBackend.com/api");
+        });
+        // 自定义过滤器中使用自定义服务，特别注意双重return的语法格式
+        app.filter('myFormat', ['hexafy', function (hexafy) {
+            return function (x) {
+                return hexafy.myFunc(x);
+            };
+        }]);
+        // 将自定义服务注入控制器中
+        app.controller('myCtrl', function ($scope, hexafy3) {
+            // 控制器中使用服务
+            $scope.hex = hexafy3.myFunc(255);
+            $scope.array = [200, 251, 255];
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <h2>{{hex}}</h2>
+    <!-- 服务如何在指令和表达式中使用？ -->
+    <!--<h2 ng-bind="hexafy.myFunc(255)"></h2>-->
+    <!-- 表达式中使用自定义过滤器 -->
+    <h2>{{255 | myFormat}}</h2>
+    <p ng-repeat="x in array">{{x | myFormat}}</p>
+</div>
+</body>
+</html>

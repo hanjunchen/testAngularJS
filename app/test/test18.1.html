@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS 全局变量、多种方式</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        // value和constant方法定义的常量用于在配置阶段传递值，但在配置阶段不可用
+        var constant1 = "give";
+        var app = angular.module("myApp", []);
+        app.value("constant2", "me");
+        app.constant("constant3", {c1: "four", c2: "five", c3: "six"});
+        // 通过模块定义的全局变量需要作为参数传入
+        app.controller("myCtrl", function ($scope, constant2, constant3) {
+            // 普通js中定义的全局变量无需注入
+            $scope.test1 = constant1;
+            $scope.test2 = constant2;
+            $scope.test3 = constant3;
+        });
+        /*AngularJS提供能5种依赖注入的方式
+         value
+         constant
+         factory
+         service
+         provider
+         后三种作为服务可以在其中定义全局变量*/
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+{{test1}}
+{{test2}}
+{{test3.c2}}
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS事件</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.name1 = "我是";
+            $scope.name2 = "呵呵";
+            $scope.flag = true;
+            /*$scope.myMethod = function () {
+                $scope.flag = !$scope.flag;// 不停的赋值给自身，通过触发事件改变其他html元素绑定的值
+            }*/
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <!-- Angular应用程序值都有默认值，初始是undefined或者null不显示 -->
+    <button ng-click="count = count + 1">点我！</button><!-- 点击以后count被转换为int型，但是不能写成count++ -->
+    <p>{{ count }}</p>
+    <button ng-click="flag = !flag">隐藏/显示</button>
+    <div ng-hide="flag">
+        <input type="text" ng-model="name1">
+        <input type="text" ng-model="name2">
+        <p>{{name1+name2}}</p>
+    </div>
+</div>
+</body>
+</html>

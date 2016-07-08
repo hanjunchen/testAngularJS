@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS表单输入验证</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.username = "johnMe";
+            $scope.email = "john.me@gmail.com";
+            // console.log($scope.myForm.$valid);// $valid等验证属性怎么在控制器中使用
+            $scope.checkName = function () {
+                // 正则：空白字符或者是以字母开头长度是6~16,注意正则中的或关系符号是单竖杠|
+                var reg = /^\s|([a-zA-Z]\w{5,15})$/;
+                return reg.test($scope.username);
+            }
+        });
+        // 自定义指令检查用户名格式？
+        app.directive("checkDirective", function () {
+            return {
+                template: "",
+                replace: true,
+                restrict: 'A'
+            };
+        });
+    </script>
+</head>
+<body>
+<form ng-app="myApp" ng-controller="myCtrl" name="myForm" novalidate>
+    <label>name:</label><br>
+    <input type="text" name="username" placeholder="必填项" ng-model="username" required>
+    <!-- $dirty属性意思是触发失去焦点并且表单值发生改变才返回true；$pristine属性与其意思相反 -->
+    <span style="color: red;" ng-show="myForm.username.$dirty">
+        <span ng-show="myForm.username.$error.required">用户名是必填项！</span>
+        <span style="color: red;" ng-show="!checkName()">用户名格式不对！</span>
+    </span>
+    <br>
+    <label>email:</label><br>
+    <input type="email" name="email" placeholder="必填项" ng-model="email" required>
+    <!-- 这样写是为了代码复用，不同的验证错误给出不同的提示，只要$invalid是true那么验证就有问题,是所有$error验证进行||运算的结果，即它们的结果是相互绑定的 -->
+    <span style="color: red;" ng-show="myForm.email.$dirty">
+        <span ng-show="myForm.email.$error.required">邮箱是必填项！</span>
+        <span ng-show="myForm.email.$error.email">邮箱格式不对！</span>
+    </span>
+    <br>
+    <input type="submit" ng-disabled="myForm.username.$invalid||myForm.email.$invalid">
+</form>
+</body>
+</html>

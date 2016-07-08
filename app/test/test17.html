@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS动画</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script>
+        /* ngAnimate模块会监测angular绑定的指令，类似ng-hide和ng-show，一旦值发生变化，
+         该模块就会为html元素添加相应的css样式，提前定义好的该样式便应用在该元素上，
+         例如ng-hide指令的值发生改变时，便会为其添加.ng-hide样式（这都是ngAnimate模块的作用）*/
+        angular.module("myApp", ["ngAnimate"]);
+    </script>
+    <style>
+        div {
+            background-color: lightblue;
+            height: 100px;
+            width: 100%;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+
+        #div1 {
+            /* transition属性用于指定过渡效果，all表示该html元素的所有css属性名，属性样式变化过程就会应用该动画效果
+             （也可以指定特定的css属性发生变化才触发），linear设置过渡效果的曲线，0.5s设置过渡效果持续时间,
+              这里添加属性之后，后面的任何新增样式都会被应用*/
+            transition: all linear 0.5s;
+        }
+
+        #div1.ng-hide {
+            /* 因为transition属性包含了所有其他css属性(all)，所以这里的每个属性在生效时都有动画效果
+             ng-hide指令变为true，元素必定要隐藏，所以该类样式定义了元素隐藏的方式 */
+            height: 0;
+            width: 0;
+            background-color: transparent; /* 默认值，透明 */
+            top: -200px;
+            left: 200px;
+        }
+
+        #div2 {
+            transition: all linear 0.5s;
+        }
+
+        #div2.ng-hide {
+            height: 0;
+        }
+
+        /* @keyframes自定义动态样式，即css属性值的变化过程，属性值是变化的，
+        animation属性把这个变化作为一个动画
+         0%和100%是关键字，相当于from和to，表示动画处于不同进度采用不同属性值*/
+        @keyframes myChange {
+            0% {
+                height: 100px;
+            }
+            100% {
+                height: 0px;
+            }
+        }
+
+        #div3.ng-hide {
+            /* 这种方式与transition的区别是：单向的应用动画，即只有隐藏时才添加该样式并生效，
+            当ng-hide指令为false时，该样式被移除，所以显示时也就没有动画效果，
+            而transition即使样式移除时，.ng-hide中指定的css属性值发生了变化，所以应用动画效果 */
+            animation: myChange 0.5s; /* 作用相当于transition：height linear 0.5s; */
+        }
+
+        /* 理解transition和animation：前者是对任何时候的属性值变动都应用动画，后者则是只对属性值按规定变化时才应用动画 */
+    </style>
+</head>
+<body ng-app="myApp">
+
+隐藏 DIV: <input type="checkbox" ng-model="myCheck">
+<div id="div1" ng-hide="myCheck"></div>
+<div id="div2" ng-hide="myCheck"></div>
+<div id="div3" ng-hide="myCheck"></div>
+
+</body>
+</html>

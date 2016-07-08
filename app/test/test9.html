@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Select(选择框)</title>
+    <link rel="stylesheet" href="/testAngularJS/app/bower_components/chosen/chosen.css" />
+    <script src="/testAngularJS/app/bower_components/chosen/chosen.jquery.min.js"></script>
+    <!--<script src="/testAngularJS/app/bower_components/angular-chosen-localytics/dist/angular-chosen.min.js"></script>-->
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope) {
+            $scope.array = ['小明', '小黑', '小白'];
+            $scope.students = [{name: '小明', age: 18, course: '数学'}, {name: '小黑',age: 8,course: '语文'}, {name: '小白', age: 28, course: '英语'}];
+            $scope.sites = {site01: "Google", site02: "Runoob", site03: "Taobao"};
+            $scope.cars = {
+                car01 : {brand : "Ford", model : "Mustang", color : "red"},
+                car02 : {brand : "Fiat", model : "500", color : "white"},
+                car03 : {brand : "Volvo", model : "XC90", color : "black"}
+            };
+            $scope.districts=[
+                {provinceId: '99', provinceName: '省直', provinceUnits: [
+                    {unitId: '9901', unitName: '省单位1', unitPositions: [
+                        {positionId: '990101', positionName: '省职位1' },
+                        {positionId: '990102', positionName: '省职位2' }
+                    ]},
+                    {unitsId: '9902', unitName: '省单位2', unitPositions: [
+                        {positionId: '990201', positionName: '省职位3' },
+                        {positionId: '990202', positionName: '省职位4' }
+                    ]}
+                ]},
+                {provinceId: '01', provinceName: '长沙', provinceUnits: [
+                    {unitId: '0101', unitName: '长沙单位1', unitPositions: [
+                        {positionId: '010101', positionName: '长沙职位1' },
+                        {positionId: '010102', positionName: '长沙职位2' }
+                    ]},
+                    {unitId: '0201', unitName: '长沙单位2', unitPositions: [
+                        {positionId: '010201', positionName: '长沙职位3' },
+                        {positionId: '010202', positionName: '长沙职位4' }
+                    ]}
+                ]}];
+            $scope.animals = [
+                {
+                    id: '00001',
+                    name: '猫',
+                    sex: '雌',
+                    food: '鱼',
+                    favor: '玩球'
+                },
+                {
+                    id: '00002',
+                    name: '狗',
+                    sex: '雄',
+                    food: '骨头',
+                    favor: '接盘子'
+                },
+                {
+                    id: '00003',
+                    name: '兔',
+                    sex: '雌',
+                    food: '胡萝卜',
+                    favor: '刨洞'
+                },
+                {
+                    id: '00004',
+                    name: '狮',
+                    sex: '雄',
+                    food: '肉',
+                    favor: '猎物'
+                }
+            ];
+        });
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <!-- ng-options方式下拉列表都是对象，ng-repeat下拉列表是字符串，当数据源是对象中的对象属性时ng-options更加灵活，从而可以轻松实现省市级联  -->
+    <select ng-model="mySelect" ng-options="x for x in array"></select>
+    <select>
+        <option ng-repeat="x in array">{{x}}</option>
+    </select>
+    <!-- for表示循环，作用和ng-repeat相同 -->
+    <select ng-model="mySelect2" ng-options="x.age for x in students"></select>
+    <select>
+        <option ng-repeat="x in students">{{x.age}}</option>
+    </select>
+    <!-- 注意select必须要加上ng-model属性 ,类似于struts2中的下拉列表,ng-model表示当前选中的对象 -->
+    <!-- 级联操作，将一个select的ng-model作为另一个select的循环的对象 -->
+    <select ng-model="mySelect3" ng-options="x for (x,y) in sites"></select>
+    <select ng-model="mySelect4" ng-options="y for (x,y) in sites"></select>
+    <select ng-model="mySelect5" ng-options="x for (x,y) in cars"></select>
+    <select ng-model="mySelect6" ng-options="y.color for (x,y) in cars"></select>
+    <br>
+    <!-- 省市级联，三级联动，ng-model表示当前选中的对象x，ng-options中for前面的值就是将要显示的值 -->
+    <!-- ng-model=x   ng-option=x.xxx -->
+    <!-- AngularJS实现三级联动极为简单明了 -->
+    <select ng-model="select1"  ng-options="x.provinceName for x in districts">
+        <!--　value为空时为默认值，相当于selected="selected"　-->
+        <option value="">---请选择考区---</option>
+    </select>
+    <select ng-model="select2"  ng-options="x.unitName for x in select1.provinceUnits">
+        <option value="">---请选择单位---</option>
+    </select>
+    <select ng-model="select3" ng-options="x.positionName for x in select2.unitPositions">
+        <option value="">---请选择职位---</option>
+    </select>
+    <br>
+    <select ng-model="selectedId1" ng-options="a.name for a in animals">
+        <option value="">请选择你的萌宠</option>
+    </select>
+    <span>{{selectedId1}}</span>
+    <br>
+    <!-- 通过a.id as a.name这种语法将id属性绑定给select标签，默认是将animals对象绑定给select的
+     通过选择对象的一个属性，将其对应的其他属性绑定到控制器中 -->
+    <select ng-model="selectedId2" ng-options="a.id as a.name for a in animals">
+        <option value="">请选择你的萌宠</option>
+    </select>
+    <span>{{selectedId2}}</span>
+</div>
+</body>
+</html>
