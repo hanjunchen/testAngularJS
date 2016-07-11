@@ -9,6 +9,7 @@
         var app = angular.module("myApp", []);
         app.controller('myCtrl', function ($scope, $http) {
             var dataUrl = "http://localhost:63342/testAngularJS/app/test/myJson.json";
+            var dataUrl2 = "http://localhost:63342/testAngularJS/app/test/tsconfig.json";
             //var dataUrl = "http://www.runoob.com/try/angularjs/data/Customers_JSON.php";
             /*$http({
              method: 'GET',
@@ -23,12 +24,16 @@
             $http.get(dataUrl).success(function (resp) {
              $scope.datas = resp.records;
              });
+            $http.get(dataUrl2).success(function (resp) {
+             $scope.datas2 = resp.compilerOptions;
+             });
         });
     </script>
 </head>
 <body>
 <div ng-app="myApp" ng-controller="myCtrl">
     <h4 ng-repeat="x in datas">{{x.Name + "————" + x.City + "————" + x.Country}}</h4>
+    <h3>{{datas2.module}}</h3>
 </div>
 </body>
 </html>
