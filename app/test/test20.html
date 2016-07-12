@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test angular object and jquery function</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.item = "abc,qwe,zxc,asd";
+            var arr = $scope.item.split(",");
+            $.each(arr, function (i, n) {
+                console.log(i + "-" + n);
+            });
+            $scope.item = arr;
+            $scope.obj = {};
+            $scope.obj.id = "2";
+            $scope.obj.name = "hello";
+            $scope.obj.list = {};
+            $scope.obj.list.one = "速度";// angularjs中深度嵌套对象，都需要定义对象
+            console.log($scope.obj);
+            console.log($.param($scope.obj));//
+            console.log($.isEmptyObject({}));// 判断是否为没属性的空对象{}
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<p>{{item}}</p>
+</body>
+</html>
