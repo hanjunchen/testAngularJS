@@ -91,7 +91,7 @@
     <select ng-model="mySelect5" ng-options="x for (x,y) in cars"></select>
     <select ng-model="mySelect6" ng-options="y.color for (x,y) in cars"></select>
     <br>
-    <!-- 省市级联，三级联动，ng-model表示当前选中的对象x，ng-options中for前面的值就是将要显示的值 -->
+    <!-- 省市级联，三级联动，ng-model表示当前选中的对象x（可能是又多个ng-option的值组成的数组），ng-options中for前面的值是下拉列表的值 -->
     <!-- ng-model=x   ng-option=x.xxx -->
     <!-- AngularJS实现三级联动极为简单明了 -->
     <select ng-model="select1"  ng-options="x.provinceName for x in districts">
