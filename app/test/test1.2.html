@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <title>ng-repeat</title>
     <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
     <script>
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function ($scope) {
             $scope.arrs = [1, 2, 5, 7, 2];
+            $scope.students = [
+                {name: '小明', age: 18, course: '数学'},
+                {name: '小黑', age: 8, course: '语文'},
+                {name: '小白', age: 28, course: '英语'}];
+            $scope.fiterList = ['name', 'age'];
+            $scope.filterColumn = function (column) {
+                // $.inArray()方法判断
+                if ($.inArray(column, $scope.fiterList) === -1) {
+                    return false;
+                }
+                return true;
+            }
         });
     </script>
 </head>
@@ -17,5 +30,20 @@
 <div ng-repeat="arr in arrs track by $index">
     {{arr + ',' + $index}}
 </div>
+<table>
+    <thead>
+    <th>姓名</th>
+    <th>年龄</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="stu in students track by $index">
+        <!-- 集合数组中的元素x,y可以在当前html元素任何地方使用 -->
+        <td ng-repeat="(x,y) in stu" ng-if="filterColumn(x)"><a href="" ng-if="x=='name'">{{y}}</a><span
+                ng-if="x!='name'">{{y}}</span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>{{filterColumn('age')}}</p>
 </body>
 </html>
