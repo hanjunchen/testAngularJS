@@ -7,7 +7,14 @@
     <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
     <script>
         var app = angular.module('myApp', []);
-        app.controller('myCtrl', function ($scope) {
+        // 配置app
+        app.config(function ($rootScopeProvider) {
+            $rootScopeProvider.digestTtl(15);
+        });
+        app.controller('myCtrl', myCtrl);
+        // 注入依赖
+        myCtrl.$inject = ['$scope'];
+        function myCtrl($scope) {
             $scope.arrs = [1, 2, 5, 7, 2];
             $scope.students = [
                 {name: '小明', age: 18, course: '数学'},
@@ -22,10 +29,24 @@
                     }
                 }
                 return true;
-            }
+            };
             var obj = {name: '小明', age: 18, course: '数学'};
-            console.log(angular.toJson(obj));
-        });
+            // 将对象转换成数组后，便可以进行排序
+            $scope.objToArray = function (obj) {
+                var arr = [];
+                $.each(obj, function (i, n) {
+                    arr.push({key: i, value: n});
+                });
+                return arr;
+            };
+            /*$.each($scope.students, function (i,n) {
+             $.each($scope.objToArray(n), function (a,b) {
+             console.log(b.key + '-' +b.value);
+             });
+             });*/
+            $scope.stuArray = [];
+        }
+
     </script>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -42,19 +63,20 @@
     <tbody>
     <tr ng-repeat="stu in students track by $index">
         <!-- 集合数组中的元素x,y可以在当前html元素内的任何地方使用 -->
-        <td ng-repeat="(x,y) in stu" ng-if="filterColumn(x)">
+        <!--<span ng-init="stuArray = objToArray(stu)"></span>-->
+        <td ng-repeat="x in objToArray(stu)" ng-if="filterColumn(x.key)">
             <!--<a href="" ng-if="x=='name'">{{y}}</a>
             <span ng-if="x!='name'">{{y}}</span>-->
             <!-- 有其他条件可以继续加 -->
-            <span ng-switch="x">
+            <span ng-switch="x.key">
                 <span ng-switch-when="name">
-                    <a href="">{{y}}</a>
+                    <a href="">{{x.value}}</a>
                 </span>
                 <span ng-switch-when="date">
-                    {{y | date:"yyyy-MM-dd HH:mm:ss"}}
+                    {{x.value | date:"yyyy-MM-dd HH:mm:ss"}}
                 </span>
                 <span ng-switch-default>
-                    {{y}}
+                    {{x.value}}
                 </span>
             </span>
         </td>

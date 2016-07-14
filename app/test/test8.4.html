@@ -11,19 +11,19 @@
             var dataUrl = "http://localhost:63342/testAngularJS/app/test/myJson.json";
             var dataUrl2 = "http://localhost:63342/testAngularJS/app/test/tsconfig.json";
             //var dataUrl = "http://www.runoob.com/try/angularjs/data/Customers_JSON.php";
-            /*$http({
+            $http({
              method: 'GET',
              url: dataUrl,
-             params: {id: 1},// post方式就用data传参
+             params: {id: 1}// post方式就用data传参
              }).success(function (resp) {
              $scope.datas = resp.records;// json数组对象
-             });*/
+             });
             /*$http.jsonp(dataUrl + "?callback=JSON_CALLBACK").success(function (resp) {// 跨域使用jsonp方式
                 $scope.datas = resp.records;
             });*/
-            $http.get(dataUrl).success(function (resp) {
+            /*$http.get(dataUrl).success(function (resp) {
              $scope.datas = resp.records;
-             });
+             });*/
             $http.get(dataUrl2).success(function (resp) {
              $scope.datas2 = resp.compilerOptions;
              });
