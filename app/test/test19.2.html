@@ -21,6 +21,7 @@
                 car03: {brand: "Volvo", model: "XC90", color: "black"}
             };
             //　config方法用于定义路由，不是在$routeProvider上定义路由，而是在$stateProvider定义状态
+            // config用于在模块加载之前对数据进行配置
         }).config(function ($stateProvider, $urlRouterProvider) {// 此处参数顺序不能错
             // 三种状态模版对象，主视图通过状态名来切换不同状态
             $stateProvider.state('state1', {
