@@ -112,11 +112,11 @@
     <br>
     <!-- 通过a.id as a.name这种语法将id属性绑定给select标签，默认是将animals对象绑定给select的
      通过选择对象的一个属性，将其对应的其他属性绑定到控制器中 -->
-    <!-- ng-model是option标签中提交的值，这个a.id as a.name表示页面上显示a.name，但是提交a.id的值，a.id就是option的value值 -->
+    <!-- ng-model默认显示值，a.id是要提交的值，a.name是列表显示的值 -->
     <select ng-model="selectedId2" ng-options="a.id as a.name for a in animals">
         <option value="">请选择你的萌宠</option>
     </select>
-    <span>{{selectedId2}}</span>
+    <span aria-sort="">{{selectedId2}}</span>
 </div>
 </body>
 </html>

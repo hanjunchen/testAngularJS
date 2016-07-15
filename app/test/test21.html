@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义排序</title>
+    <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
+    <script>
+        angular.module("myApp", []).controller('myCtrl', function ($scope) {
+
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<div class="heightfix">
+    <div class="commentIcon"></div>
+    <label id="commentDate1" class="bold">{{COMMENTON}}</label>:
+    <label id="commentCreator1" class="bold">{{COMMENTBY_FIRSTNAME}} {{COMMENTBY_LASTNAME}}</label>
+    <label class="commentContent" id="commenttext_{{ID}}">{{COMMENTTEXT}}</label>
+</div>
+</body>
+</html>
