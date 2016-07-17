@@ -20,7 +20,7 @@
                 {name: '小明', age: 18, course: '数学'},
                 {name: '小黑', age: 8, course: '语文'},
                 {name: '小白', age: 28, course: '英语'}];
-            $scope.fiterList = ['name', 'age'];
+            $scope.fiterList = ['age', 'name'];
             $scope.filterColumn = function (column) {
                 // $.inArray()方法判断数组是否包含指定元素
                 if ($scope.fiterList.length > 0) {
@@ -44,9 +44,7 @@
              console.log(b.key + '-' +b.value);
              });
              });*/
-            $scope.stuArray = [];
         }
-
     </script>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
@@ -63,23 +61,34 @@
     <tbody>
     <tr ng-repeat="stu in students track by $index">
         <!-- 集合数组中的元素x,y可以在当前html元素内的任何地方使用 -->
-        <!--<span ng-init="stuArray = objToArray(stu)"></span>-->
-        <td ng-repeat="x in objToArray(stu)" ng-if="filterColumn(x.key)">
-            <!--<a href="" ng-if="x=='name'">{{y}}</a>
-            <span ng-if="x!='name'">{{y}}</span>-->
-            <!-- 有其他条件可以继续加 -->
-            <span ng-switch="x.key">
+        <!-- 这样循环实现就不要再判断字段是否在数组中，并且可以让属性按照规定的数组顺序排序 -->
+        <td ng-repeat="x in fiterList">
+            <span ng-switch="x">
                 <span ng-switch-when="name">
-                    <a href="">{{x.value}}</a>
+                    <a href="">{{stu.x}}</a>
                 </span>
                 <span ng-switch-when="date">
-                    {{x.value | date:"yyyy-MM-dd HH:mm:ss"}}
+                    {{stu.x | date:"yyyy-MM-dd HH:mm:ss"}}
                 </span>
                 <span ng-switch-default>
-                    {{x.value}}
+                    {{stu.x}}
                 </span>
             </span>
         </td>
+        <!--   <td ng-repeat="x in objToArray(stu)" ng-if="filterColumn(x.key)">
+               &lt;!&ndash; 有其他条件可以继续加 &ndash;&gt;
+               <span ng-switch="x.key">
+                   <span ng-switch-when="name">
+                       <a href="">{{x.value}}</a>
+                   </span>
+                   <span ng-switch-when="date">
+                       {{x.value | date:"yyyy-MM-dd HH:mm:ss"}}
+                   </span>
+                   <span ng-switch-default>
+                       {{x.value}}
+                   </span>
+               </span>
+           </td>-->
     </tr>
     </tbody>
 </table>
