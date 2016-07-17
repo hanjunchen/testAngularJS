@@ -65,13 +65,14 @@
         <td ng-repeat="x in fiterList">
             <span ng-switch="x">
                 <span ng-switch-when="name">
-                    <a href="">{{stu.x}}</a>
+                    <!-- 通过stu[x]直接访问名称为x的属性值,相当于把x当作索引key；也可以定一个方法通过遍历对象求出名称为x的属性值 -->
+                    <a href="">{{stu[x]}}</a>
                 </span>
                 <span ng-switch-when="date">
-                    {{stu.x | date:"yyyy-MM-dd HH:mm:ss"}}
+                    {{stu[x] | date:"yyyy-MM-dd HH:mm:ss"}}
                 </span>
                 <span ng-switch-default>
-                    {{stu.x}}
+                    {{stu[x]}}
                 </span>
             </span>
         </td>
