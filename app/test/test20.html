@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>test angular object and jquery function</title>
+    <title>angular和jquery方法</title>
     <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
     <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
 
     <script>
         var app = angular.module("myApp", []);
-        app.controller("myCtrl", function ($scope) {
+        app.controller("myCtrl", function ($scope, $location) {
             $scope.item = "abc,qwe,zxc,asd";
             var arr = $scope.item.split(",");
             $.each(arr, function (i, n) {
@@ -24,6 +24,9 @@
             console.log($scope.obj);
             console.log($.param($scope.obj));//
             console.log($.isEmptyObject({}));// 判断是否为没属性的空对象{}
+            angular.forEach($location.search(), function (key, value) {
+                console.log(key + ":" + value);
+            });
         });
     </script>
 </head>

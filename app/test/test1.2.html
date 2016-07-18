@@ -20,7 +20,7 @@
                 {name: '小明', age: 18, course: '数学'},
                 {name: '小黑', age: 8, course: '语文'},
                 {name: '小白', age: 28, course: '英语'}];
-            $scope.fiterList = ['age', 'name'];
+            $scope.fiterList = ['name', 'age'];
             $scope.filterColumn = function (column) {
                 // $.inArray()方法判断数组是否包含指定元素
                 if ($scope.fiterList.length > 0) {
@@ -34,6 +34,7 @@
             // 将对象转换成数组后，便可以进行排序
             $scope.objToArray = function (obj) {
                 var arr = [];
+                // angular的forEach方法和jquery的each方法遍历对象参数列表一致
                 $.each(obj, function (i, n) {
                     arr.push({key: i, value: n});
                 });
@@ -55,8 +56,8 @@
 </div>
 <table>
     <thead>
-    <th>姓名</th>
     <th>年龄</th>
+    <th>姓名</th>
     </thead>
     <tbody>
     <tr ng-repeat="stu in students track by $index">
@@ -76,8 +77,8 @@
                 </span>
             </span>
         </td>
-        <!--   <td ng-repeat="x in objToArray(stu)" ng-if="filterColumn(x.key)">
-               &lt;!&ndash; 有其他条件可以继续加 &ndash;&gt;
+        <!--<td ng-repeat="x in objToArray(stu)" ng-if="filterColumn(x.key)">
+            &lt;!&ndash; 有其他条件可以继续加 &ndash;&gt;
                <span ng-switch="x.key">
                    <span ng-switch-when="name">
                        <a href="">{{x.value}}</a>
@@ -89,7 +90,7 @@
                        {{x.value}}
                    </span>
                </span>
-           </td>-->
+        </td>-->
     </tr>
     </tbody>
 </table>

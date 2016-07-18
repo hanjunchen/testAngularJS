@@ -2,20 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>自定义排序</title>
+    <title>$watch监听器</title>
     <script src="\testAngularJS\app\bower_components\angular\angular.min.js"></script>
     <script>
-        angular.module("myApp", []).controller('myCtrl', function ($scope) {
+        angular.module("myApp", []).controller('myCtrl', function ($scope, $timeout) {
+            $scope.name = 'hello';
+            $scope.age = 18;
+            // 监听name值,该参数可以是一个angular属性或方法的字符串，初始化时name被赋值hello，监听器监测到执行对应的方法
+            // $timeout服务在1S后调用方法改变name值为world，监听器监听到后执行方法将新的值应用到程序中
+            // 注意：如果第一个参数是方法名，那么监听的是该方法的返回值，方法返回值发生改变触发监听事件
+            // $watch实际就相当于js中的onchange事件，$watch更强大，可以监听作用域或服务中的任何值和方法返回值，而onchange只能响应html元素值的变化
+            // scope参数是name所在作用域，这样可以传递域中的值
+            // 实际$watch会不停检测name的值
+            $scope.$watch('name', function (newValue, oldValue, scope) {
+                console.log(newValue);
+                console.log(oldValue);
+                console.log(scope.name);
+                console.log(scope.age);
 
+            });
+            $timeout(function () {
+                $scope.name = "world";
+            }, 1000);
         });
     </script>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
-<div class="heightfix">
-    <div class="commentIcon"></div>
-    <label id="commentDate1" class="bold">{{COMMENTON}}</label>:
-    <label id="commentCreator1" class="bold">{{COMMENTBY_FIRSTNAME}} {{COMMENTBY_LASTNAME}}</label>
-    <label class="commentContent" id="commenttext_{{ID}}">{{COMMENTTEXT}}</label>
-</div>
+
 </body>
 </html>
