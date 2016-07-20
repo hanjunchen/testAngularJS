@@ -3,15 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script type="text/javascript">
-        var list = [1, 3, 4, 5, 7, 8, 2];
-        alert(list.indexOf(0));// 判断js数组集合中是否包含某个元素
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', function ($scope) {
+            var list = [1, 3, 4, 5, 7, 8, 2];
+            console.log(list.indexOf(0));// 判断js数组集合中是否包含某个元素
+            var aaa;
+            var bbb;
+            if (!aaa) {
+                console.log(bbb);
+            }
+            $scope.students = [{name: '小明', age: 18, course: '数学'}, {name: '小黑',age: 8,course: '语文'}, {name: '小白', age: 28, course: '英语'}];
+            // ng-model的值是和ng-options中as前面的值对应的，只有ng-model是students中age里的值时才会显示对应name，并且两者是绑定的
+            $scope.selected = 18;
+        });
     </script>
 </head>
-<body>
+<body ng-app="myApp" ng-controller="myCtrl">
 <p>testPush</p>
-<p>git</p>
-<!-- 只允许输入数字，不用写正则 -->
+<!-- 只允许输入数字，不用写正则，自带验证 -->
 <input type="number">
+<select ng-model="selected" ng-options="x.age as x.name for x in students"></select>
+<input type="hidden">
 </body>
 </html>
