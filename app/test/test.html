@@ -16,7 +16,6 @@
             }
             $scope.students = [{name: '小明', age: 18, course: '数学'}, {name: '小黑',age: 8,course: '语文'}, {name: '小白', age: 28, course: '英语'}];
             // ng-model的值是和ng-options中as前面的值对应的，只有ng-model是students中age里的值时才会显示对应name，并且两者是绑定的
-            // select标签的ng-model需要传数组给它，因为字段名是字符串，只有数字类型用逗号隔开才能自动解析，注意ng-model如果不是数字就必须是数组才能与后面的list匹配
             $scope.selected = 18;
         });
     </script>
