@@ -25,6 +25,9 @@
             console.log($localStorage.name);// 存储在本地未声明时值是undefined
             var ddd;// 而在js中未声明时会报undefined异常
             console.log(ddd);
+            $localStorage.columnTimestamp = $localStorage.columnTimestamp || [];
+            console.log('--------------');
+            console.log($localStorage.columnTimestamp[0]);
         });
 
     </script>
