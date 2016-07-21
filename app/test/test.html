@@ -17,6 +17,7 @@
             $scope.students = [{name: '小明', age: 18, course: '数学'}, {name: '小黑',age: 8,course: '语文'}, {name: '小白', age: 28, course: '英语'}];
             // ng-model的值是和ng-options中as前面的值对应的，只有ng-model是students中age里的值时才会显示对应name，并且两者是绑定的
             $scope.selected = 18;
+            $scope.ccc = parseInt('s');
         });
     </script>
 </head>
@@ -24,7 +25,8 @@
 <p>testPush</p>
 <!-- 只允许输入数字，不用写正则，自带验证 -->
 <input type="number">
-<select ng-model="selected" ng-options="x.age as x.name for x in students"></select>
+<select multiple ng-model="selected" ng-options="x.age as x.name for x in students"></select>
 <input type="hidden">
+{{ccc == NaN}}
 </body>
 </html>
