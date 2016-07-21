@@ -8,7 +8,7 @@
     <script>
         var app = angular.module("myApp", []);
         app.controller("myCtrl", function ($scope) {
-            $scope.x = "John"
+            $scope.x = "John";
             $scope.y = angular.uppercase($scope.x);// 全局方法功能与过滤器相同
             $scope.flag1 = angular.isString($scope.x);
             $scope.flag2 = angular.isNumber($scope.x);
@@ -28,25 +28,25 @@
         angular.forEach(list, function (val, key) {
             // console.log全局方法在js中就有，类似于alert，但是效果更好，不会打断当前页面，显示对象全部内容，在浏览器的控制台查看
             console.log(key + '号同学:' + val);
-        })
+        });
         var obj = {
             name: '吴登广',
             age: '21',
             title: 'worker'
-        }
+        };
         // 遍历对象，key是属性名，val是属性值
         angular.forEach(obj, function (val, key) {
             console.log(key + ':' + val);
-        })
+        });
 
         // angular.copy方法
         var user1 = {
             name: 'hjc',
             age: 21,
             title: 'worker'
-        }
+        };
         var user2 = user1;// 只复制指针地址，实际为同一个对象
-        var user3 = angular.copy(user1);// 内存中又创建一个新对象
+        var user3 = angular.copy(user1);// 内存中又创建一个新对象，深复制
         var user4 = {};// 空对象
         angular.copy(user1, user4);// 重载方法无返回值，注意这个user4必须是一个对象或数组
         user1.name = 'hello';
@@ -79,7 +79,7 @@
             name: 'Jax2000',
             age: 21,
             title: 'worker'
-        }
+        };
         console.log(user);// 将之前的json对象和json字符串概念转换过来
         console.log(user.name);// 只有对象才可以这样访问属性
         user = angular.toJson(user);// 相当于JSON.stringify()方法，将对象或数组格式化为json字符串，就是一个序列化过程
@@ -92,11 +92,11 @@
         var user3 = {
             name: 'Jax2000',
             age: 21,
-        }
+        };
         var user4 = {
             age: 22,
             skill: {}
-        }
+        };
         var dst = {};
         var dst2 = {};
         angular.extend(dst, user3, user4);// 同名属性，后面的会覆盖前面的
@@ -112,11 +112,11 @@
         var stu1 = {
             name: 'Jax2000',
             age: 21
-        }
+        };
         var stu2 = {
             age: 21,
             name: 'Jax2000'
-        }
+        };
         console.log(angular.equals(stu1, stu2));
 
         // angular.noop空方法
