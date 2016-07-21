@@ -76,7 +76,7 @@
     <tr ng-repeat="stu in students track by $index">
         <!-- 集合数组中的元素x,y可以在当前html元素内的任何地方使用 -->
         <!-- 这样循环实现就不要再判断字段是否在数组中，并且可以让属性按照规定的数组顺序排序 -->
-        <td ng-repeat="x in fiterList" ng-if="!isEmptyArray(fiterList)">
+        <td ng-repeat="x in fiterList">
             <span ng-switch="x">
                 <span ng-switch-when="name">
                     <!-- 通过stu[x]直接访问名称为x的属性值,相当于把x当作索引key；也可以定一个方法通过遍历对象求出名称为x的属性值 -->
