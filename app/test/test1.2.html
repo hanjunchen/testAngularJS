@@ -52,12 +52,14 @@
                 return true;
             };
             // 获取对象数组中某个属性的数组
-            $scope.attrMapList = function (list ,attr) {
+            $scope.attrMapList = function (list, attr) {
                 return $.map(list, function (data) {
                     return data[attr];
                 })
             };
-            console.log($scope.attrMapList($scope.students ,'name'));
+            console.log($scope.attrMapList($scope.students, 'name'));
+            // push方法返回的是数组的长度
+            console.log($scope.students.push({name: '小红', age: 20, course: '物理'}));
         }
     </script>
 </head>
@@ -67,7 +69,7 @@
 <div ng-repeat="arr in arrs track by $index">
     {{arr + ',' + $index}}
 </div>
-<table>
+<table border="1px">
     <thead>
     <th>年龄</th>
     <th>姓名</th>
