@@ -40,12 +40,21 @@
                 return arr;
             }
 
+            function objToList(obj) {
+                var arr = [];
+                _.forEach(obj, function (value, key) {
+                    arr.push({key: key, value: value});
+                });
+                return arr;
+            }
+
             $scope.studentsMap = {
                 stus1: [{name: '小明', age: 18, course: '数学'},
                     {name: '小黑', age: 8, course: '语文'}], stus2: {name: '小白', age: 28, course: '英语'}
             };
-            // angular中这样经过函数处理过其中的数据仍然是绑定的
+            // angular中这样经过函数处理过其中的数据仍然是绑定的，只要在$scope中，不管方法怎么处理都是绑定的
             $scope.studentsList = mapToList($scope.studentsMap);
+            $scope.studentsMaps = objToList($scope.studentsMap);
         });
 
     </script>
@@ -58,6 +67,7 @@
 <input type="hidden">
 {{ccc == NaN}}
 <input ng-model="studentsMap.stus1[1].age">
-{{studentsList[1].age}}
+<input ng-model="studentsMaps[0].value[1].age">
+<input ng-model="studentsList[1].age">
 </body>
 </html>
