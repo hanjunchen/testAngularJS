@@ -5,6 +5,7 @@
     <title>Title</title>
     <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
     <script src="/testAngularJS/app/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/testAngularJS/app/bower_components/lodash/lodash.js"></script>
     <script>
         // 使用外部模块和服务时必须先将模块注入自定义模块，然后再将依赖服务注入控制器
         var app = angular.module("myApp", ['ngStorage']);
@@ -29,6 +30,21 @@
             console.log('--------------');
             console.log($localStorage.columnTimestamp[0]);
 
+            function mapToList(map) {
+                var arr = [];
+                _.forEach(map, function (value, key) {
+                    _.forEach(value, function (n) {
+                        arr.push(n);
+                    });
+                });
+                return arr;
+            }
+
+            $scope.studentsMap = {
+                stus1: [{name: '小明', age: 18, course: '数学'},
+                    {name: '小黑', age: 8, course: '语文'}], stus2: {name: '小白', age: 28, course: '英语'}
+            };
+            $scope.studentsList = mapToList($scope.studentsMap);
         });
 
     </script>
@@ -40,5 +56,7 @@
 <select ng-model="selected" ng-options="x.age as x.name for x in students"></select>
 <input type="hidden">
 {{ccc == NaN}}
+<input ng-model="studentsMap.stus1[1].age">
+{{studentsList[1].age}}
 </body>
 </html>
