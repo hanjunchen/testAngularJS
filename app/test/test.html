@@ -44,6 +44,7 @@
                 stus1: [{name: '小明', age: 18, course: '数学'},
                     {name: '小黑', age: 8, course: '语文'}], stus2: {name: '小白', age: 28, course: '英语'}
             };
+            // angular中这样经过函数处理过其中的数据仍然是绑定的
             $scope.studentsList = mapToList($scope.studentsMap);
         });
 
