@@ -50,24 +50,28 @@
 
             $scope.studentsMap = {
                 stus1: [{name: '小明', age: 18, course: '数学'},
-                    {name: '小黑', age: 8, course: '语文'}], stus2: {name: '小白', age: 28, course: '英语'}
+                    {name: '小黑', age: 8, course: '语文'}], stus2: [{name: '小白', age: 28, course: '英语'}]
             };
-            // angular中这样经过函数处理过其中的数据仍然是绑定的，只要在$scope中，不管方法怎么处理都是绑定的
+            // angular中这样经过函数处理过其中的数据仍然是绑定的，只要在$scope中，不管方法怎么处理都是绑定的，应该其中的内容都是对象，在所指向的内存地址是不变的
             $scope.studentsList = mapToList($scope.studentsMap);
             $scope.studentsMaps = objToList($scope.studentsMap);
+            $scope.myFunc = function (){
+                return "呵呵哒";// {{}}中是可以直接调用作用域的方法的
+            }
         });
 
     </script>
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 <p>testPush</p>
-<!-- 只允许输入数字，不用写正则，自带验证 -->
+<!-- 只允许输入数字，不用写正则，自带验证，正则使用ng-pattern指令即可 -->
 <input type="number">
 <select ng-model="selected" ng-options="x.age as x.name for x in students"></select>
 <input type="hidden">
 {{ccc == NaN}}
-<input ng-model="studentsMap.stus1[1].age">
-<input ng-model="studentsMaps[0].value[1].age">
-<input ng-model="studentsList[1].age">
+<input ng-model="studentsMap.stus2[0].age">
+<input ng-model="studentsMaps[1].value[0].age">
+<input ng-model="studentsList[2].age">
+<span>{{myFunc()}}</span>
 </body>
 </html>
