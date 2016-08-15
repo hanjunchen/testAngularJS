@@ -34,7 +34,7 @@
             // 将对象转换成数组后，便可以进行排序
             $scope.objToArray = function (obj) {
                 var arr = [];
-                // angular的forEach方法和jquery的each方法遍历对象参数列表一致
+                // angular的forEach方法和jquery的each方法遍历对象参数列表一致，而lodash则是相反的，value,key
                 $.each(obj, function (i, n) {
                     arr.push({key: i, value: n});
                 });
