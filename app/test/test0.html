@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/testAngularJS/app/bower_components/lodash/lodash.js"></script>
+    <script src="/testAngularJS/app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', function ($scope) {
+
+
+        });
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+<fieldset ng-repeat="x in [1,2]" class="wrapper wrapper-content animated fadeInRight">
+    <legend>x</legend>
+    456
+</fieldset>
+<div class="row">
+    <div class="col-lg-12">
+        qweqr
+    </div>
+</div>
+</body>
+</html>
