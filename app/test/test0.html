@@ -15,6 +15,12 @@
             // 当input表单是number类型时不输入值返回null，当为text类型不输入则返回空字符串‘’
             vm.check = function () {
                 console.log(vm.sum);
+            };
+            vm.score = '123';
+            vm.s = 111.2;
+            // 表单input为text类型时，接收number类型数据自动转为String类型，input为number类型时，接收String类型数据自动转为null
+            vm.cop = function () {
+                console.log(typeof(vm.s));
             }
         });
     </script>
@@ -29,6 +35,8 @@
         qweqr
     </div>
     <input type="text" ng-model="sum" ng-change="check()">
+    <input type="number" ng-model="score">
+    <input type="text" ng-model="s" ng-change="cop()">
 </div>
 </body>
 </html>
