@@ -29,6 +29,9 @@
             $localStorage.columnTimestamp = $localStorage.columnTimestamp || [];
             console.log('--------------');
             console.log($localStorage.columnTimestamp[0]);
+            console.log('--------------');
+            var reg = /^\w*中国$/;
+            console.log(reg.test('sd中国'));
 
             function mapToList(map) {
                 var arr = [];
@@ -64,14 +67,10 @@
 </head>
 <body ng-app="myApp" ng-controller="myCtrl">
 <p>testPush</p>
-<!-- 只允许输入数字，不用写正则，自带验证，正则使用ng-pattern指令即可 -->
+<!-- 只允许输入数字，不用写正则，自带验证 -->
 <input type="number">
 <select ng-model="selected" ng-options="x.age as x.name for x in students"></select>
 <input type="hidden">
 {{ccc == NaN}}
-<input ng-model="studentsMap.stus2[0].age">
-<input ng-model="studentsMaps[1].value[0].age">
-<input ng-model="studentsList[2].age">
-<span>{{myFunc()}}</span>
 </body>
 </html>
