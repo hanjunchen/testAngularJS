@@ -5,24 +5,38 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="../test/SweetAlert2_example.css">
     <link rel="stylesheet" type="text/css" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
-    <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
 </head>
 <body>
 <button class="input-type-textarea">Try me!</button>
 </body>
 <script>
+    swal({
+        title: 'Auto close alert!',
+        text: 'I will close in 2 seconds.',
+        timer: 2000
+    });
     $('.input-type-textarea').on('click', function () {
         swal({
+            title: '请输入审核不通过原因：',
+            type: 'info',
             input: 'textarea',
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
-            confirmButtonText: "是",
-            cancelButtonText: "否",
-        }).then(function (result) {
-            if (result) {
-                swal('成功！');
-            }
+            confirmButtonText: "提交",
+            cancelButtonText: "取消",
+        }).then(function (result) {// input类型，回调函数参数是input的输入值，而其他非输入型如text类型返回的是boolean值，如果点击的是cancel则不进入then方法
+            console.log(result===true);
+            console.log(result===false);
+            console.log(result===undefined);
+            console.log(result.trim()==='');
+            swal({
+                title: '批量验证成功！',
+                type:'success',
+                confirmButtonColor: "#DD6B55",
+                timer: 1500// timer参数在then方法中无效---sweetalert2的bug，使用sweetalert即可
+            });
         });
     });
 </script>
