@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<link rel="stylesheet" type="text/css" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
-    <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>-->
-    <script src="../bower_components/angular/angular.min.js"></script>
-    <script src="../bower_components/ngSweetAlert/SweetAlert.js"></script>
-    <!-- for IE support -->
-    <script src="../bower_components/es6-promise/promise.min.js"></script>
-    <script>
-        var app = angular.module('myApp', ['SweetAlert']);
-        app.controller('myCtrl', function ($scope, SweetAlert) {
-            SweetAlert.swal("hello to me!!!");
-        });
-    </script>
+    <link rel="stylesheet" type="text/css" href="../test/SweetAlert2_example.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/sweetalert2/dist/sweetalert2.min.css">
+    <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/sweetalert2/dist/sweetalert2.min.js"></script>
 </head>
 <body>
-
+<button class="input-type-textarea">Try me!</button>
 </body>
+<script>
+    $('.input-type-textarea').on('click', function () {
+        swal({
+            input: 'textarea',
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "是",
+            cancelButtonText: "否",
+        }).then(function (result) {
+            if (result) {
+                swal('成功！');
+            }
+        });
+    });
+</script>
 </html>
