@@ -22,7 +22,7 @@
             $routeProvider.when('/', {template: '<h3>直接打印内容<h3>'})
                     .when('/jump', {templateUrl: 'jump.html', controller: 'myCtrl1'})// 需要使用到定义的控制器，所以config方法在后面
                     .when('/break', {templateUrl: 'break.html', controller: 'myCtrl2'})
-                    .when('/outer', {templateUrl: 'outer1.html', controller: 'myCtrl2'})
+                    .when('/outer', {templateUrl: '$routeProvider_outer.html', controller: 'myCtrl2'})
                     .otherwise({redirectTo: '/'});
         });
     </script>

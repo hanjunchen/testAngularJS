@@ -8,8 +8,8 @@
         // $http服务用于从远程服务器上获取数据
         var app = angular.module("myApp", []);
         app.controller('myCtrl', function ($scope, $http,$location) {
-            var dataUrl = "http://localhost:63342/testAngularJS/app/test/myJson.json";
-            var dataUrl2 = "http://localhost:63342/testAngularJS/app/test/tsconfig.json";
+            var dataUrl = "http://localhost:63342/testAngularJS/app/test/json1.json";
+            var dataUrl2 = "http://localhost:63342/testAngularJS/app/test/json2.json";
             //var dataUrl = "http://www.runoob.com/try/angularjs/data/Customers_JSON.php";
             $http({
              method: 'GET',

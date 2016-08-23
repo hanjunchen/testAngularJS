@@ -69,7 +69,7 @@
                     // 点号表示child1是state3下的一个子路由，即会切换到state3下的child1状态
                     .state('state3.child', {
                         url: '/state3-child',
-                        templateUrl: 'outer2.html',
+                        templateUrl: '$stateProvider_outer.html',
                         resolve: {// resolve属性注入关联控制器中使用到的依赖,即myCtrl2
                             person: function () {// 直接定义后注入
                                 return {

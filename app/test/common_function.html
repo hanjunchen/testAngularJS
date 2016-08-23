@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/testAngularJS/app/bower_components/angular/angular.min.js"></script>
+    <script src="/testAngularJS/app/bower_components/ngstorage/ngStorage.js"></script>
+    <script src="/testAngularJS/app/bower_components/lodash/lodash.js"></script>
+    <script src="/testAngularJS/app/bower_components/jquery/dist/jquery.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller('myCtrl', function ($scope, $location) {
+            console.log("asdad".startWith('as'));
+            // 正则实现判断以什么字符串结尾和开始
+            String.prototype.startWith = function (str) {
+                var reg = new RegExp("^" + str);
+                return reg.test(this);
+            };
+
+            String.prototype.endWith = function (str) {
+                var reg = new RegExp(str + "$");
+                return reg.test(this);
+            };
+
+            console.log($.param($scope.obj));
+
+            console.log($.isEmptyObject({}));
+
+            console.log($.inArray('a',['c','b']));
+
+            angular.forEach($location.search(), function (key, value) {
+                console.log(key + ":" + value);
+            });
+
+        });
+
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+</body>
+</html>

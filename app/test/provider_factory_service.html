@@ -21,7 +21,7 @@
             var service = {};
             service.myFunc = function (x) {
                 return x.toString(16);
-            }
+            };
             return service;
         });
         // provider()是创建service最底层的方式，这也是唯一一个可以使用.config()方法配置创建service的方法
@@ -29,14 +29,14 @@
             this.backendUrl = "http://localhost:3000";
             this.setBackendUrl = function (newUrl) {
                 if (newUrl) this.backendUrl = newUrl;
-            }
+            };
             // 可以在$get方法中注入系统服务$http等
             this.$get = function () {
                 var service = {
                     myFunc: function (x) {
                         return x.toString(16);
                     }
-                }
+                };
                 return service;
             }
         });

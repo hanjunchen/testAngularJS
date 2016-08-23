@@ -5,7 +5,7 @@ angular.module("myApp", []).controller('myCtrl', function ($scope) {
     $scope.fullName = function () {
         //return $scope.name1 + " " + $scope.name2;
         return myMethod() + "2222";
-    }
+    };
     // 控制器内调用方法，会在加载js是执行
     myMethod();
     // 这种方式声明的方法，没有加入到作用域中，只能在控制器中被调用

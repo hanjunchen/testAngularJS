@@ -20,9 +20,9 @@
             $scope.obj.id = "2";
             $scope.obj.name = "hello";
             $scope.obj.list = {};
-            $scope.obj.list.one = "速度";// angularjs中深度嵌套对象，都需要定义对象
+            $scope.obj.list.one = "速度";// angular中深度嵌套对象，都需要定义对象
             console.log($scope.obj);
-            console.log($.param($scope.obj));//
+            console.log($.param($scope.obj));// 格式化post方式参数
             console.log($.isEmptyObject({}));// 判断是否为没属性的空对象{}
             angular.forEach($location.search(), function (key, value) {
                 console.log(key + ":" + value);
