@@ -12,10 +12,17 @@
 <button class="input-type-textarea">Try me!</button>
 </body>
 <script>
-    swal({
+    /*swal({
         title: 'Auto close alert!',
         text: 'I will close in 2 seconds.',
         timer: 2000
+    });*/
+    swal({
+        title: 'Auto close alert!',
+        html: '<textarea cols="50" rows="5"></textarea>',
+        showCancelButton: true,
+        confirmButtonText: "提交",
+        cancelButtonText: "取消"
     });
     $('.input-type-textarea').on('click', function () {
         swal({
