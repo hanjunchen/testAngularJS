@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="\testAngularJS\app\bower_components\jszip\dist\jszip.js"></script>
+    <script>
+        var JSZip = require('jszip');
+        var fs = require('fs');
+        var zip = new JSZip();
+        zip.file('test.txt', 'hello there');
+        zip.folder("images/img").file("201.gif", fs.readFileSync("../../source/img/201.gif"));
+        zip.folder("images/img").file("199.jpg", fs.readFileSync("../../source/img/199.jpg"));
+        zip.folder("images/img").file("weibo.png", fs.readFileSync("../../source/img/weibo.png"));
+        zip.folder("images/js").file("navigation.js", fs.readFileSync("../../source/js/navigation.js"));
+        var data = zip.generate({base64: false, compression: 'DEFLATE'});
+        fs.writeFile('demo.zip', data, 'binary', function () {
+            console.log('success');
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
