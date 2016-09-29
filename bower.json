@@ -19,6 +19,7 @@
     "tree-grid-mw": "*",
     "ngstorage": "~0.3.9",
     "sweetalert2": "~4.1.9",
-    "ngSweetAlert": "angular-sweetalert#~1.1.0"
+    "ngSweetAlert": "angular-sweetalert#~1.1.0",
+    "Stuk/jszip":"~2.6.0"
   }
 }
