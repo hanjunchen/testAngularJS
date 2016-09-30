@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script>
+        function downloadFile(fileName, content){
+            var aLink = document.createElement('a'),
+                    blob = new Blob([content]),
+                    evt = document.createEvent("HTMLEvents");
 
+            evt.initEvent("click");
+
+            aLink.download = fileName;
+            aLink.href = URL.createObjectURL(blob);
+            aLink.dispatchEvent(evt);
+        }
+        downloadFile('eee','http://img.hsgene.com/289deda8f7ff193497ab148ac3253fc6');
     </script>
 </head>
 <body>
-<a href="http://img.hsgene.com/ab8ba6c6dbc82b8039e7bb80f6d3922e">aaa</a>
+<!-- download属性h5新增的a标签的属性，点击链接不预览打开文件而是直接下载文件，并且把该属性值作为文件名 -->
+<a href="http://img.hsgene.com/ab8ba6c6dbc82b8039e7bb80f6d3922e" download="文件名" ng-show="false">aaa</a>
 <form action="http://img.hsgene.com/ab8ba6c6dbc82b8039e7bb80f6d3922e" method="post">
     <input type="submit" value="提交">
 </form>
