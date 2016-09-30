@@ -8,9 +8,9 @@
         var zip = new JSZip();
         zip.file("Hello.txt", "Hello World\n");
         var img = zip.folder("images");
-        img.file("smile.gif", "123qwe", {base64: true});
-        var content = zip.generate({type: "blob"});
-        console.log(content);
+        img.file("smile.gif", "http://img.hsgene.com/289deda8f7ff193497ab148ac3253fc6", {base64: false});
+        var content = zip.generate();
+        window.location="http://img.hsgene.com/289deda8f7ff193497ab148ac3253fc6";
         // see FileSaver.js
 //        saveAs(content, "example.zip");
     </script>
