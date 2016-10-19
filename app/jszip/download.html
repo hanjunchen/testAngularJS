@@ -19,9 +19,13 @@
 //      var blob = new Blob([content]);
         var evt = document.createEvent("HTMLEvents");
         evt.initEvent("click", true, true);
-        aLink.download = fileName;
+        console.log(evt);
         aLink.href = content;
+        aLink.download = fileName;
         aLink.dispatchEvent(evt);
+        console.log(aLink);
+        aLink.click();
+        //  如何设置下载文件名及路径
     }
     downloadFile('eee', 'http://img.hsgene.com/DCW-20161017-0006-10-17-16-46-19.jpg');
 </script>
