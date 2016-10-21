@@ -7,7 +7,7 @@
 <body id="body">
 <!-- download属性h5新增的a标签的属性，点击链接不预览打开文件而是直接下载文件，并且把该属性值作为文件名 -->
 <!-- 在chrome中跨域url的文件名无法重命名，其他浏览器兼容性更差 -->
-<a href="http://img.hsgene.com/DCW-20161017-0006-10-17-16-46-19.jpg" download="文件名">aaa</a>
+<a href="http://img.hsgene.com/DCW-20161017-0006-10-17-16-46-19.jpg" target=""  download="">下载</a>
 <form action="http://img.hsgene.com/DCW-20161017-0006-10-17-16-46-19.jpg" method="post">
     <input type="submit" value="提交">
 </form>
@@ -26,6 +26,6 @@
         aLink.click();
         //  如何设置下载文件名及路径
     }
-    downloadFile('eee', 'http://img.hsgene.com/DCW-20161017-0006-10-17-16-46-19.jpg');
+    //downloadFile('eee', 'http://img.hsgene.com/DCW-20161017-0006-10-17-16-46-19.jpg');
 </script>
 </html>
