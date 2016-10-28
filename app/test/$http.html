@@ -17,7 +17,7 @@
              params: {id: 1}// post方式就用data传参
              }).success(function (resp) {
              $scope.datas = resp.records;// json数组对象
-             });
+             });    //  返回一个promise对象，其success和then方法返回的数据有区别，success直接返回data，then返回一个封装的data
             /*$http.jsonp(dataUrl + "?callback=JSON_CALLBACK").success(function (resp) {// 跨域使用jsonp方式
                 $scope.datas = resp.records;
             });*/
