@@ -33,7 +33,7 @@
         <li ng-repeat=" x in stus | orderBy:'age':true">{{x.name+ ' ' +x.age}}</li>
     </ul>
     <ul>
-        <!-- limitTo限制只输出集合的前n个元素，n为负数则输出后n个元素 -->
+        <!-- limitTo限制只输出集合的前n个元素，n为负数则输出后n个元素/也可以用于限制字符串长度 -->
         <li ng-repeat=" x in stus | orderBy:'age'| limitTo:-2">{{x.name}} {{x.age}}</li>
     </ul>
     <p><input type="text" ng-model="test"></p><!-- test作为过滤条件，fiter可以自由选择是字符串还是对象作为条件，可以自动识别 -->
