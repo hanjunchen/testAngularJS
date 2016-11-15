@@ -32,13 +32,13 @@
             showCancelButton: true,
             confirmButtonColor: "#DD6B55",
             confirmButtonText: "提交",
-            cancelButtonText: "取消",
+            cancelButtonText: "取消"
         }).then(function (result) {// input类型，回调函数参数是input的输入值，而其他非输入型如text类型返回的是boolean值，如果点击的是cancel则不进入then方法
             console.log(result===true);
             console.log(result===false);
             console.log(result===undefined);
             console.log(result.trim()==='');
-            swal({
+            swal({//    新的弹窗会自动关闭旧的弹窗
                 title: '批量验证成功！',
                 type:'success',
                 confirmButtonColor: "#DD6B55",
